@@ -1,5 +1,5 @@
 # ielts-meter
 
-Ushbu dastur ielts scoreni hisoblab beradi 
+Dastur Kodida OOP dan, ya'ni class va obyektlardan foydalanilgan..
 
 ![DemoGif](Assets/ielts_meterDemo.gif)
