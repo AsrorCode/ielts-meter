@@ -1,7 +1,9 @@
 ﻿using System;
+using IeltsMeter;
 
 class Program
-{
+{ public static Printer  printer=new Printer();
+
     static void Main()
     {
         StartIeltsMeter();
@@ -9,7 +11,8 @@ class Program
 
     static void StartIeltsMeter()
     {
-        Console.WriteLine("IELTS Meter ga xush kelibsiz \n");
+        
+       printer.PrintLine("IELTS Meter ga xush kelibsiz \n");
 
         string[] skills = { "Speaking", "Reading", "Listening", "Writing" };
         decimal[] scores = new decimal[4];
@@ -19,16 +22,16 @@ class Program
             scores[i] = GetValidScore(skills[i]);
         }
 
-        decimal overall = CalculateAverage(scores);
+        decimal overall = CalculateAverage.CalculateAverage1(scores);
 
-        Console.WriteLine($"\nO‘rta arifmetik: {overall}");
+        printer.PrintLine($"\n O‘rta arifmetik: {overall}");
     }
 
     static decimal GetValidScore(string skillName)
     {
         while (true)
         {
-            Console.Write($"{skillName} balini kiriting (0 - 9): ");
+            printer.Print($"{skillName} balini kiriting (0 - 9): ");
             string input = Console.ReadLine();
 
             if (decimal.TryParse(input, out decimal score))
@@ -37,19 +40,12 @@ class Program
                     return score;
             }
 
-            Console.WriteLine(" Noto‘g‘ri ball! Iltimos 0 va 9 oralig‘ida kiriting.\n");
+            printer.PrintLine(" Notogri ball! Iltimos 0 va 9 oraligida kiriting.\n");
         }
     }
 
-    static decimal CalculateAverage(decimal[] scores)
-    {
-        decimal sum = 0;
 
-        foreach (decimal score in scores)
-        {
-            sum += score;
-        }
-
-        return sum / scores.Length;
-    }
+    
+        
+   
 }
