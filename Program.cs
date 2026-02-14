@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using IeltsMeter;
 
 class Program
-{ public static Printer  printer=new Printer();
+{
+    public static Printer printer = new Printer();
 
     static void Main()
     {
@@ -11,10 +13,11 @@ class Program
 
     static void StartIeltsMeter()
     {
-        
-       printer.PrintLine("IELTS Meter ga xush kelibsiz \n");
 
-        string[] skills = { "Speaking", "Reading", "Listening", "Writing" };
+        printer.PrintLine("IELTS Meter ga xush kelibsiz \n");
+
+        string[] skills = { "Speaking", "Reading", "Writing", "Listening" };
+
         decimal[] scores = new decimal[4];
 
         for (int i = 0; i < skills.Length; i++)
@@ -24,28 +27,41 @@ class Program
 
         decimal overall = CalculateAverage.CalculateAverage1(scores);
 
-        printer.PrintLine($"\n O‘rta arifmetik: {overall}");
-    }
+        printer.PrintLine($"\n Sizning OVERALL balingiz: {overall}");
 
-    static decimal GetValidScore(string skillName)
+        //Loyihadan foydalangan insonga minnatdorchilik sifatidan yozdim
+        printer.PrintLine("Bizning loyihamizdan foydalanganingiz uchun roxmat OOKAA");
+        
+
+        static decimal GetValidScore(string skillName)
+{
+    while (true)
     {
-        while (true)
+        try
         {
-            printer.Print($"{skillName} balini kiriting (0 - 9): ");
-            string input = Console.ReadLine();
+            printer.Print($"{skillName} balini kiriting (1 - 9): ");
+            string input = Console.ReadLine()!;
 
-            if (decimal.TryParse(input, out decimal score))
+            decimal score = decimal.Parse(input);
+
+            if (score < 1 || score > 9)
             {
-                if (score >= 0 && score <= 9)
-                    return score;
+                DivideByZeroException myAcs = new();
+                throw myAcs;
             }
 
-            printer.PrintLine(" Notogri ball! Iltimos 0 va 9 oraligida kiriting.\n");
+            return score;
+        }
+        catch (DivideByZeroException)
+        {
+            printer.PrintLine("Xato: Ball 1 va 9 oralig‘ida bo‘lishi kerak!\n");
+        }
+        catch
+        {
+            printer.PrintLine("Xato: Mavjuda bolgan formatni kiriting! Son kiriting.\n");
         }
     }
-
-
-    
-        
-   
+ }
 }
+}
+      
